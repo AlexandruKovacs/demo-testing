@@ -23,13 +23,6 @@ La API queda disponible en `http://localhost:8080/api`, con datos de ejemplo
 precargados automáticamente (3 carteras, activos y tramos) y consola H2 en
 `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:titulizacion`, usuario `sa`, sin contraseña).
 
-> ⚠️ Este proyecto **no se ha podido compilar dentro del entorno en el que se generó**,
-> ya que su acceso de red solo permite `pypi.org` / `registry.npmjs.org` y no
-> `repo.maven.apache.org`. El código se ha escrito y revisado manualmente
-> (estructura estándar de Spring Boot 3 / Jakarta EE), pero conviene ejecutar
-> `mvn compile` la primera vez que abras el proyecto para confirmar que todo
-> resuelve correctamente en tu máquina.
-
 ### 2. Frontend (puerto 4200)
 
 ```bash
