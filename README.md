@@ -1,9 +1,3 @@
-# PoC · Plataforma de Titulización de Activos
-
-Proof of concept de una plataforma de gestión de **fondos de titulización**:
-carteras de activos cedidos, activos subyacentes y la estructura de capital
-(tramos Senior / Mezzanine / Equity) emitida sobre cada cartera.
-
 El objetivo de este PoC es doble:
 
 1. Demostrar una arquitectura **Angular + Spring Boot** end-to-end, funcional y navegable.
@@ -12,22 +6,9 @@ El objetivo de este PoC es doble:
    flujos completos de la aplicación (no mocks).
 
 ```
-titulizacion-poc/
 ├── backend/     Spring Boot 3.3 (Java 17) · API REST + H2 en memoria
 └── frontend/    Angular 20 · UI + Playwright E2E
 ```
-
-## Dominio del PoC
-
-| Concepto | Descripción |
-|---|---|
-| **Cartera** | El fondo/vehículo de titulización constituido sobre un conjunto de activos. |
-| **Activo** | Activo subyacente cedido a la cartera (hipotecario, consumo, leasing, PYME). |
-| **Tramo** | Cada tramo de la estructura de capital emitido sobre la cartera (Senior, Mezzanine, Equity), con su propia calificación y cupón. |
-
-La pantalla de detalle de cada cartera incluye una visualización tipo
-**"waterfall"** de la estructura de capital, la forma habitual de representar
-la subordinación entre tramos en una titulización real.
 
 ## Arranque rápido
 
@@ -71,8 +52,7 @@ npm run e2e:report         # abre el último informe HTML
 ```
 
 El backend debe estar arrancado en `:8080` antes de lanzar `npm run e2e`, ya
-que los tests ejercitan la integración real contra la API (crear carteras,
-añadir activos y tramos, comprobar el listado, etc.) en lugar de usar mocks.
+que los tests ejercitan la integración real contra la API en lugar de usar mocks.
 
 Ver `frontend/e2e/README.md` para el detalle de la suite.
 
