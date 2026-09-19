@@ -1,0 +1,27 @@
+.page-header { margin-bottom: 24px; }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--senior); }
+h1 { font-size: 26px; margin-top: 6px; }
+.subtitle { color: var(--text-secondary); font-size: 14px; }
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input, select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 13.5px;
+  }
+
+  input { flex: 1; }
+
+  .btn { margin-left: auto; }
+}
+
+.banner-error { border-color: var(--equity); color: var(--equity); font-size: 13.5px; margin-bottom: 20px; }
+.muted { color: var(--text-muted); font-size: 13.5px; }
+.actions { display: flex; gap: 8px; }

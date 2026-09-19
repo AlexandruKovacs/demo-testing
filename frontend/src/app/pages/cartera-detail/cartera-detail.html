@@ -1,0 +1,151 @@
+@if (cargando()) {
+  <p class="muted">Cargando cartera…</p>
+} @else if (error()) {
+  <div class="card banner-error" data-testid="detail-error">{{ error() }}</div>
+  <a routerLink="/carteras" class="btn">Volver al listado</a>
+} @else if (cartera(); as c) {
+  <header class="page-header">
+    <a routerLink="/carteras" class="back-link">&larr; Carteras</a>
+    <span class="eyebrow">Cartera #{{ c.id }}</span>
+    <h1 data-testid="cartera-nombre">{{ c.nombre }}</h1>
+    <p class="subtitle">Constituida el {{ c.fechaConstitucion }} · <span class="tag mezzanine">{{ c.estado }}</span></p>
+  </header>
+
+  <!-- <section class="card">
+    <div class="section-head">
+      <h2>Estructura de capital</h2>
+      <span class="muted mono">{{ c.valorNominalTotal | number:'1.0-0' }} {{ c.moneda }}</span>
+    </div>
+    <app-tranche-waterfall [tramos]="c.tramos ?? []" />
+  </section>
+
+  <section class="card">
+    <div class="section-head">
+      <h2>Tramos emitidos</h2>
+      <button class="btn" (click)="mostrarFormTramo.set(!mostrarFormTramo())" data-testid="btn-toggle-tramo">
+        {{ mostrarFormTramo() ? 'Cerrar' : '+ Añadir tramo' }}
+      </button>
+    </div>
+
+    @if (mostrarFormTramo()) {
+      <form class="inline-form" [formGroup]="formTramo" (ngSubmit)="guardarTramo()" data-testid="form-tramo">
+        <div class="field">
+          <label>Nombre</label>
+          <input formControlName="nombre" data-testid="tramo-nombre" placeholder="Tramo Senior A1" />
+        </div>
+        <div class="field">
+          <label>Tipo</label>
+          <select formControlName="tipo" data-testid="tramo-tipo">
+            <option value="SENIOR">Senior</option>
+            <option value="MEZZANINE">Mezzanine</option>
+            <option value="EQUITY">Equity</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>% Estructura</label>
+          <input type="number" formControlName="porcentajeEstructura" data-testid="tramo-porcentaje" />
+        </div>
+        <div class="field">
+          <label>Calificación</label>
+          <select formControlName="calificacionCrediticia" data-testid="tramo-calificacion">
+            <option>AAA</option><option>AA</option><option>A</option><option>BBB</option><option>BB</option><option>B</option><option>CCC</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Cupón %</label>
+          <input type="number" formControlName="tasaCupon" data-testid="tramo-cupon" />
+        </div>
+        <div class="field">
+          <label>Importe nominal</label>
+          <input type="number" formControlName="importeNominal" data-testid="tramo-importe" />
+        </div>
+        <button type="submit" class="btn primary" data-testid="btn-guardar-tramo">Guardar tramo</button>
+      </form>
+    }
+
+    @if (!c.tramos || c.tramos.length === 0) {
+      <p class="muted">Todavía no se han definido tramos.</p>
+    } @else {
+      <table data-testid="tramos-table">
+        <thead>
+          <tr><th>Nombre</th><th>Tipo</th><th>% Estructura</th><th>Calificación</th><th>Cupón</th><th>Importe</th></tr>
+        </thead>
+        <tbody>
+          @for (t of c.tramos; track t.id) {
+            <tr>
+              <td>{{ t.nombre }}</td>
+              <td><span class="tag" [class]="tramoClass(t.tipo)">{{ t.tipo }}</span></td>
+              <td class="mono">{{ t.porcentajeEstructura }}%</td>
+              <td class="mono">{{ t.calificacionCrediticia }}</td>
+              <td class="mono">{{ t.tasaCupon }}%</td>
+              <td class="mono">{{ t.importeNominal | number:'1.0-0' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section> -->
+
+  <section class="card">
+    <div class="section-head">
+      <h2>Activos subyacentes</h2>
+      <button class="btn" (click)="mostrarFormActivo.set(!mostrarFormActivo())" data-testid="btn-toggle-activo">
+        {{ mostrarFormActivo() ? 'Cerrar' : '+ Añadir activo' }}
+      </button>
+    </div>
+
+    @if (mostrarFormActivo()) {
+      <form class="inline-form" [formGroup]="formActivo" (ngSubmit)="guardarActivo()" data-testid="form-activo">
+        <div class="field">
+          <label>Tipo de activo</label>
+          <select formControlName="tipoActivo" data-testid="activo-tipo">
+            <option value="HIPOTECARIO">Hipotecario</option>
+            <option value="CONSUMO">Consumo</option>
+            <option value="LEASING">Leasing</option>
+            <option value="PYME">PYME</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Valor nominal</label>
+          <input type="number" formControlName="valorNominal" data-testid="activo-valor" />
+        </div>
+        <div class="field">
+          <label>Tasa interés %</label>
+          <input type="number" formControlName="tasaInteres" data-testid="activo-tasa" />
+        </div>
+        <div class="field">
+          <label>Plazo (meses)</label>
+          <input type="number" formControlName="plazoMeses" data-testid="activo-plazo" />
+        </div>
+        <div class="field">
+          <label>Calificación de riesgo</label>
+          <select formControlName="calificacionRiesgo" data-testid="activo-calificacion">
+            <option>AAA</option><option>AA</option><option>A</option><option>BBB</option><option>BB</option><option>B</option><option>CCC</option>
+          </select>
+        </div>
+        <button type="submit" class="btn primary" data-testid="btn-guardar-activo">Guardar activo</button>
+      </form>
+    }
+
+    @if (!c.activos || c.activos.length === 0) {
+      <p class="muted">Todavía no se han incorporado activos a la cartera.</p>
+    } @else {
+      <table data-testid="activos-table">
+        <thead>
+          <tr><th>Tipo</th><th>Valor nominal</th><th>Tasa interés</th><th>Plazo</th><th>Calificación</th></tr>
+        </thead>
+        <tbody>
+          @for (a of c.activos; track a.id) {
+            <tr>
+              <td>{{ a.tipoActivo }}</td>
+              <td class="mono">{{ a.valorNominal | number:'1.0-0' }}</td>
+              <td class="mono">{{ a.tasaInteres }}%</td>
+              <td class="mono">{{ a.plazoMeses }} meses</td>
+              <td class="mono">{{ a.calificacionRiesgo }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+}

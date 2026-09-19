@@ -1,0 +1,66 @@
+<header class="page-header">
+  <span class="eyebrow">Registro</span>
+  <h1>Carteras de titulización</h1>
+  <p class="subtitle">Fondos y vehículos constituidos sobre agrupaciones de activos.</p>
+</header>
+
+<div class="toolbar">
+  <input
+    type="text"
+    placeholder="Buscar por nombre…"
+    [ngModel]="filtro()"
+    (ngModelChange)="filtro.set($event)"
+    data-testid="filtro-nombre"
+  />
+  <select
+    [ngModel]="estadoFiltro()"
+    (ngModelChange)="estadoFiltro.set($event)"
+    data-testid="filtro-estado"
+  >
+    <option value="TODOS">Todos los estados</option>
+    <option value="EN_CONSTITUCION">En constitución</option>
+    <option value="ACTIVA">Activa</option>
+    <option value="AMORTIZADA">Amortizada</option>
+  </select>
+  <a routerLink="/carteras/nueva" class="btn primary" data-testid="btn-nueva-cartera">+ Nueva cartera</a>
+</div>
+
+@if (error()) {
+  <div class="card banner-error">{{ error() }}</div>
+}
+
+<div class="card">
+  @if (cargando()) {
+    <p class="muted">Cargando…</p>
+  } @else if (carterasFiltradas().length === 0) {
+    <p class="muted" data-testid="sin-resultados">No hay carteras que coincidan con el filtro.</p>
+  } @else {
+    <table data-testid="carteras-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Constitución</th>
+          <th>Estado</th>
+          <th>Valor nominal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of carterasFiltradas(); track c.id) {
+          <tr [attr.data-testid]="'cartera-row-' + c.id">
+            <td>{{ c.nombre }}</td>
+            <td class="mono">{{ c.fechaConstitucion }}</td>
+            <td><span class="tag mezzanine">{{ c.estado }}</span></td>
+            <td class="mono">{{ c.valorNominalTotal | number:'1.0-0' }} {{ c.moneda }}</td>
+            <td class="actions">
+              <a [routerLink]="['/carteras', c.id]" class="btn">Ver</a>
+              <button class="btn danger" (click)="eliminar(c.id)" [attr.data-testid]="'btn-eliminar-' + c.id">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

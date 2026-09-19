@@ -1,0 +1,60 @@
+<header class="page-header">
+  <span class="eyebrow">Panel de control</span>
+  <h1>Vista general de la titulización</h1>
+  <p class="subtitle">Estado agregado de las carteras, activos subyacentes y estructura de tramos emitidos.</p>
+</header>
+
+@if (error()) {
+  <div class="card banner-error" data-testid="dashboard-error">{{ error() }}</div>
+}
+
+@if (resumen(); as r) {
+  <section class="kpis" data-testid="kpi-section">
+    <div class="card kpi">
+      <span class="kpi-label">Carteras constituidas</span>
+      <span class="kpi-value mono">{{ r.numeroCarteras }}</span>
+    </div>
+    <div class="card kpi">
+      <span class="kpi-label">Valor total titulizado</span>
+      <span class="kpi-value mono">{{ r.valorTotalTitulizado | number:'1.0-0' }} €</span>
+    </div>
+    <div class="card kpi">
+      <span class="kpi-label">Activos subyacentes</span>
+      <span class="kpi-value mono">{{ r.numeroActivos }}</span>
+    </div>
+  </section>
+}
+
+<section class="card recent">
+  <div class="section-head">
+    <h2>Carteras recientes</h2>
+    <a routerLink="/carteras" class="btn">Ver todas</a>
+  </div>
+
+  @if (cargando()) {
+    <p class="muted">Cargando carteras…</p>
+  } @else if (carterasRecientes().length === 0) {
+    <p class="muted">Todavía no hay carteras constituidas. <a routerLink="/carteras/nueva">Crea la primera emisión</a>.</p>
+  } @else {
+    <table data-testid="recent-carteras-table">
+      <thead>
+        <tr>
+          <th>Cartera</th>
+          <th>Estado</th>
+          <th>Valor nominal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of carterasRecientes(); track c.id) {
+          <tr>
+            <td>{{ c.nombre }}</td>
+            <td><span class="tag mezzanine">{{ c.estado }}</span></td>
+            <td class="mono">{{ c.valorNominalTotal | number:'1.0-0' }} {{ c.moneda }}</td>
+            <td><a [routerLink]="['/carteras', c.id]" class="btn">Abrir</a></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

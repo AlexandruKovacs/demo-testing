@@ -1,0 +1,55 @@
+<header class="page-header">
+  <span class="eyebrow">Nueva emisión</span>
+  <h1>Constituir cartera de titulización</h1>
+  <p class="subtitle">Define los términos generales del vehículo antes de añadir activos y tramos.</p>
+</header>
+
+<form class="card form" [formGroup]="form" (ngSubmit)="guardar()" data-testid="cartera-form">
+  <div class="field">
+    <label for="nombre">Nombre de la cartera</label>
+    <input id="nombre" type="text" formControlName="nombre" data-testid="input-nombre" placeholder="RMBS Serie 2026-1" />
+    @if (form.controls.nombre.invalid && form.controls.nombre.touched) {
+      <span class="error-text">El nombre debe tener al menos 3 caracteres.</span>
+    }
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label for="fecha">Fecha de constitución</label>
+      <input id="fecha" type="date" formControlName="fechaConstitucion" data-testid="input-fecha" />
+    </div>
+    <div class="field">
+      <label for="moneda">Moneda</label>
+      <select id="moneda" formControlName="moneda" data-testid="input-moneda">
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label for="estado">Estado</label>
+      <select id="estado" formControlName="estado" data-testid="input-estado">
+        <option value="EN_CONSTITUCION">En constitución</option>
+        <option value="ACTIVA">Activa</option>
+        <option value="AMORTIZADA">Amortizada</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="valor">Valor nominal total</label>
+      <input id="valor" type="number" formControlName="valorNominalTotal" data-testid="input-valor" />
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="error-banner" data-testid="form-error">{{ error() }}</div>
+  }
+
+  <div class="actions">
+    <a routerLink="/carteras" class="btn">Cancelar</a>
+    <button type="submit" class="btn primary" [disabled]="enviando()" data-testid="btn-guardar">
+      {{ enviando() ? 'Guardando…' : 'Constituir cartera' }}
+    </button>
+  </div>
+</form>

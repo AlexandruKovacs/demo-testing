@@ -1,0 +1,35 @@
+<div class="waterfall" data-testid="tranche-waterfall">
+  @if (segments().length === 0) {
+    <div class="empty">Sin tramos definidos todavía.</div>
+  } @else {
+    <div class="bar">
+      @for (seg of segments(); track seg.id) {
+        <div
+          class="segment"
+          [class.senior]="seg.tipo === 'SENIOR'"
+          [class.mezzanine]="seg.tipo === 'MEZZANINE'"
+          [class.equity]="seg.tipo === 'EQUITY'"
+          [style.width.%]="seg.width"
+          [attr.data-testid]="'segment-' + seg.tipo"
+          title="{{ seg.nombre }} · {{ seg.porcentajeEstructura }}%"
+        >
+          <span class="segment-label">{{ seg.nombre }}</span>
+        </div>
+      }
+    </div>
+    <div class="legend">
+      @for (seg of segments(); track seg.id) {
+        <div class="legend-item">
+          <span
+            class="swatch"
+            [class.senior]="seg.tipo === 'SENIOR'"
+            [class.mezzanine]="seg.tipo === 'MEZZANINE'"
+            [class.equity]="seg.tipo === 'EQUITY'"
+          ></span>
+          <span class="legend-name">{{ seg.nombre }}</span>
+          <span class="legend-value mono">{{ seg.porcentajeEstructura }}% · cupón {{ seg.tasaCupon }}%</span>
+        </div>
+      }
+    </div>
+  }
+</div>

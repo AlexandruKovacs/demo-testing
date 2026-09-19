@@ -1,0 +1,30 @@
+.page-header { margin-bottom: 24px; }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--senior); }
+h1 { font-size: 26px; margin-top: 6px; }
+.subtitle { color: var(--text-secondary); font-size: 14px; }
+
+.form { max-width: 520px; }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.error-text { color: var(--equity); font-size: 12px; }
+
+.error-banner {
+  background: var(--equity-soft);
+  color: var(--equity);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}

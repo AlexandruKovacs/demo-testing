@@ -1,0 +1,25 @@
+<div class="shell">
+  <aside class="rail">
+    <!-- <div class="brand">
+      <span class="brand-mark">FT</span>
+      <span class="brand-name">Titulización<br />Capital Desk</span>
+    </div> -->
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-testid="nav-dashboard">
+        <span class="nav-index">01</span> Panel
+      </a>
+      <a routerLink="/carteras" routerLinkActive="active" data-testid="nav-carteras">
+        <span class="nav-index">02</span> Carteras
+      </a>
+      <a routerLink="/carteras/nueva" routerLinkActive="active" data-testid="nav-nueva-cartera">
+        <span class="nav-index">03</span> Nueva emisión
+      </a>
+    </nav>
+    <div class="rail-footer">
+      <span class="dot"></span> API activa en :8080
+    </div>
+  </aside>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
